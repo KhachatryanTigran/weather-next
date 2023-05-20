@@ -1,10 +1,9 @@
-import Forecast from "@/components/Forecast";
 import Image from "next/image";
-
+import Main from "@/components/Main";
 export default async function Home() {
   return (
-    <main className=" ">
-      <Forecast />
-    </main>
+    <div className=" ">
+      <Main></Main>
+    </div>
   );
 }

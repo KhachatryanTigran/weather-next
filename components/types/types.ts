@@ -22,6 +22,7 @@ export type ForecastType = {
     wind_dir: string;
     wind_kph: number;
     wind_mph: number;
+    is_day: number;
   };
   forecast: {
     forecastday: Forecastday[];
@@ -104,4 +105,12 @@ export type Forecastday = {
     totalsnow_cm: number;
     uv: number;
   };
+};
+export type LocationType = {
+  currTemp: number;
+  time: string;
+  city: string;
+  country: string;
+  region: string;
+  is_day: number;
 };

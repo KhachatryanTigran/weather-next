@@ -26,7 +26,7 @@ interface CardProps {
 }
 
 type Weather = {
-  name: String;
+  name?: String;
   unit?: String;
   impUnit?: String;
   icon?: IconType;
@@ -54,7 +54,7 @@ const Card: React.FC<CardProps> = ({
     },
     {
       name: "Pressure",
-      unit: `${pressure || 1013.2} millibars`,
+      unit: `${pressure || 1013} millibars`,
       impUnit: "Inches of Mercury",
       icon: WiRaindrop,
     },
@@ -80,7 +80,7 @@ const Card: React.FC<CardProps> = ({
   return (
     <div
       className={` flex  w-full h-full   p-1 lg:p-10 md:p-6 sm:p-3 rounded-lg  
-    dark:bg-slate-600 dark:text-slate-50 text-stone-50 `}
+    dark:bg-slate-600 dark:text-slate-50 text-stone-50 bg-stone-950  bg-opacity-30  `}
       style={{
         ...(image && getDynamicBgStyles(image?.urls.full, "500")),
         objectFit: "contain",
@@ -95,7 +95,12 @@ const Card: React.FC<CardProps> = ({
               {elem.icon ? (
                 <elem.icon className="text-blue-300 w-8 h-8"></elem.icon>
               ) : icon ? (
-                <img src={icon.toString()} width={32} height={32} alt=""></img>
+                <img
+                  src={icon.toString()}
+                  width={32}
+                  height={32}
+                  alt="icon"
+                ></img>
               ) : null}
               <h3>{elem.name}</h3> <h3>{elem.unit}</h3>
             </div>

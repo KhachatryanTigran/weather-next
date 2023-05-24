@@ -1,5 +1,3 @@
-"use client";
-
 import React from "react";
 import Card from "./Card";
 import { ForecastType } from "./types/types";
@@ -8,7 +6,7 @@ interface ForecastProps {
 }
 const Forecast: React.FC<ForecastProps> = ({ forecast }) => {
   return (
-    <div className="flex  flex-wrap md:flex-nowrap flex-row  justify-between">
+    <div className="flex  flex-wrap  justify-center  gap-1">
       {forecast?.forecast &&
         forecast?.forecast.forecastday.map((day) => {
           return (
@@ -20,6 +18,7 @@ const Forecast: React.FC<ForecastProps> = ({ forecast }) => {
               precipitation={day.day.totalprecip_mm}
               wind={day.day.maxwind_kph}
               icon={day.day.condition.icon}
+              day={day.date}
             />
           );
         })}

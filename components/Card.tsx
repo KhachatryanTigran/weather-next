@@ -8,11 +8,13 @@ import {
   WiStrongWind,
   WiHumidity,
   WiThermometer,
+  WiMoonWaningCrescent3,
 } from "react-icons/wi";
 
 import getDynamicBgStyles from "./helper/getDynamicBgStyles";
 import { BgStyle, ImageData } from "./types/interface";
 import { CurrentDay, ForecastType } from "./types/types";
+import { getDay } from "./helper/getDays";
 
 interface CardProps {
   image?: ImageData;
@@ -23,6 +25,8 @@ interface CardProps {
   wind?: number;
   precipitation?: number;
   icon?: String;
+  is_day?: number;
+  day?: string;
 }
 
 type Weather = {
@@ -40,6 +44,8 @@ const Card: React.FC<CardProps> = ({
   precipitation,
   wind,
   icon,
+  is_day,
+  day,
 }) => {
   const weather = [
     {
@@ -79,19 +85,32 @@ const Card: React.FC<CardProps> = ({
 
   return (
     <div
-      className={` flex  w-full h-full   p-1 lg:p-10 md:p-6 sm:p-3 rounded-lg  
-    dark:bg-slate-600 dark:text-slate-50 text-stone-50 bg-stone-950  bg-opacity-30  `}
+      className={` flex  ${
+        pressure ? "h-full min-w-full" : "h-full w-full lg:w-auto md:h-auto"
+      }    p-1 lg:p-3 md:p-2   rounded-lg  
+     text-stone-50 bg-stone-950  bg-opacity-30  `}
       style={{
         ...(image && getDynamicBgStyles(image?.urls.full, "500")),
         objectFit: "contain",
       }}
     >
-      {<WiDaySunny className=" text-yellow-200 w-40 h-40" />}
+      {is_day === 0 ? (
+        <WiMoonWaningCrescent3 className="text-yellow-800  w-32 h-32" />
+      ) : (
+        <WiDaySunny className="text-yellow-200 w-40 h-40" />
+      )}
 
       <div>
+        {day && <h1 className="text-base sm:text-lg">{getDay(day)}</h1>}
         {weather.map((elem: Weather, i) => {
+          if (elem.name === "Pressure" && !pressure) {
+            return;
+          }
           return (
-            <div key={i} className=" gap-2 flex ">
+            <div
+              key={i}
+              className=" gap-1 p-1 md:gap-1   flex text-xs sm:text-base"
+            >
               {elem.icon ? (
                 <elem.icon className="text-blue-300 w-8 h-8"></elem.icon>
               ) : icon ? (

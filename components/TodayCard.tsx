@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Card from "./Card";
 import searchImages from "./helper/getImages";
 import { ImageData } from "./types/interface";
-import { CurrentDay, ForecastType } from "./types/types";
+import { ForecastType } from "./types/types";
 interface TodayCardProps {
   forecast: ForecastType | undefined;
 }
@@ -43,9 +43,9 @@ const TodayCard: React.FC<TodayCardProps> = ({ forecast }) => {
       30
     ).then((res) => setWeatherPhotos(res));
   }, [forecast]);
-  console.log(forecast);
+
   return (
-    <div className="flex py-2  gap-6 flex-wrap  ">
+    <div className="flex py-2     ">
       <Card
         image={image}
         condition={forecast?.current.condition.text}
@@ -55,6 +55,7 @@ const TodayCard: React.FC<TodayCardProps> = ({ forecast }) => {
         precipitation={forecast?.current.precip_mm}
         wind={forecast?.current.wind_kph}
         icon={forecast?.current.condition.icon}
+        is_day={forecast?.current.is_day}
       />
     </div>
   );

@@ -11,7 +11,6 @@ import { ImageData } from "./types/interface";
 import getDynamicBgStyles from "./helper/getDynamicBgStyles";
 import searchImages from "./helper/getImages";
 import getRandomNumber from "./helper/getRandomNumber";
-import Error from "next/error";
 
 const Main = () => {
   const [forecast, setForecast] = useState<ForecastType>();
@@ -34,17 +33,18 @@ const Main = () => {
     try {
       fetchwWeather(city, "7").then((res) => {
         setForecast(res);
+        console.log(res);
       });
     } catch (error) {
-      console.log("fgjfjfgj");
+      console.log(error);
     }
   };
   const location: LocationType = {
     currTemp: forecast?.current.temp_c || 0,
-    time: forecast?.location.localtime || "time not found",
-    city: forecast?.location.name || "city not found",
-    country: forecast?.location.country || "country not found",
-    region: forecast?.location.region || "region not found",
+    time: forecast?.location.localtime || "---",
+    city: forecast?.location.name || "---",
+    country: forecast?.location.country || "---",
+    region: forecast?.location.region || "---",
     is_day: forecast?.current.is_day || 0,
   };
   return (
@@ -62,7 +62,7 @@ const Main = () => {
         className="text-amber-500 hover:bg-cyan-700 hover:text-stone-50 cursor-pointer   sm:hidden w-8 h-8 rounded-md "
       ></MdWallpaper>
       <button
-        className="    hidden sm:float-right sm:block text-zinc-50 bg-cyan-600 hover:bg-cyan-800 rounded-lg p-1.5  text-xs  sm:text-base "
+        className="hidden sm:float-right sm:block text-zinc-50 bg-cyan-600 hover:bg-cyan-800 rounded-lg p-1.5  text-xs  sm:text-base "
         onClick={() =>
           setBgImage(cityPhotos[getRandomNumber(cityPhotos.length)])
         }
@@ -72,7 +72,7 @@ const Main = () => {
       <div>
         <Searchbar onClick={onClick}>Search</Searchbar>
       </div>
-      <div className="flex max-md:flex-col md:justify-around   p-5 sm:p-10">
+      <div className="flex max-md:flex-col md:justify-around gap-2  p-5 sm:p-10">
         <Location location={location} /> <TodayCard forecast={forecast} />
       </div>
       <div>
